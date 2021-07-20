@@ -28,18 +28,22 @@ node *insert(node *t,int a)
         return t;
     }
 }
-bool isLeafNode(node *t)
-{
-    return(t->left==0&&t->right==0);
-}
-int CountStep(node *t)
-{
-    if(t==NULL)
+    bool isleafnode(node *t)
     {
-        return -1;
+        return(t->left==NULL && t->right==NULL);
     }
-    return 1+max(CountStep(t->left),CountStep(t->right));
-}
+    int countLeaf(node *t)
+    {
+        if(t==NULL)
+        {
+            return 0;
+        }
+        if(isleafnode(t))
+        {
+            return 1;
+        }
+        return countLeaf(t->left)+countLeaf(t->right);
+    }
 int main()
 {
     int n,x;
@@ -50,6 +54,6 @@ int main()
         cin>>x;
         t=insert(t,x);
     }
-    cout << CountStep(t);
+    cout << countLeaf(t);
     return 0;
 }
