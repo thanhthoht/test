@@ -30,6 +30,22 @@ void printTree(node *t){
 		printTree(t->right);
 	}
 }
+int treeLevel(node *t)
+{
+    if(t==NULL)
+    {return -1;}
+    return 1+max(treeLevel(t->right),treeLevel(t->left));
+}
+bool check(node *t)
+{
+    if(t==NULL)
+    {return true;}
+    if(abs(treeLevel(t->left)-treeLevel(t->right))>1)
+    {
+        return false;
+    }
+    return check(t->left)&&check(t->right);    
+}
 int main(){
 	int n, x;
 	cin >> n;
@@ -38,5 +54,10 @@ int main(){
 		cin >> x;
 		t=insert(t, x);
 	}
-	printTree(t);
+	if(check(t)==0)
+	{
+		cout << "false";
+	}
+	else
+	{cout << "true";};
 }
